@@ -1,0 +1,272 @@
+[
+  {
+    "id": "1",
+    "farmName": "햇살농장",
+    "title": "사과 수확 작업자 모집",
+    "description": "9월 사과 수확 시즌 작업자를 모집합니다. 사과 따기, 선별, 포장 작업을 담당하게 됩니다.",
+    "location": "충청북도 충주시 수안보면",
+    "workDate": {
+      "start": "2024-09-01",
+      "end": "2024-09-30",
+      "time": "08:00-17:00"
+    },
+    "requiredPeople": {
+      "male": 3,
+      "female": 2
+    },
+    "salary": {
+      "male": 90000,
+      "female": 80000
+    },
+    "provides": {
+      "meal": true,
+      "snack": true,
+      "transport": false
+    },
+    "experience": false,
+    "closeDate": "2024-09-30"
+  },
+  {
+    "id": "2",
+    "farmName": "푸른들농장",
+    "title": "배추 수확 및 김장 준비 작업",
+    "description": "김장철 배추 수확, 세척, 포장 작업을 진행합니다. 체력적으로 힘든 작업이니 참고 바랍니다.",
+    "location": "경기도 이천시 백사면",
+    "workDate": {
+      "start": "2024-10-15",
+      "end": "2024-11-15",
+      "time": "07:00-16:00"
+    },
+    "requiredPeople": {
+      "male": 5,
+      "female": 5
+    },
+    "salary": {
+      "male": 85000,
+      "female": 75000
+    },
+    "provides": {
+      "meal": true,
+      "snack": false,
+      "transport": true
+    },
+    "experience": false,
+    "closeDate": "2024-11-15"
+  },
+  {
+    "id": "3",
+    "farmName": "산골양계장",
+    "title": "양계장 관리 작업자",
+    "description": "닭장 청소, 사료 급여, 계란 수집 등 양계장 전반적인 관리 업무입니다.",
+    "location": "강원도 홍천군 내촌면",
+    "workDate": {
+      "start": "2024-08-20",
+      "end": "2024-12-20",
+      "time": "06:00-18:00"
+    },
+    "requiredPeople": {
+      "male": 2,
+      "female": null
+    },
+    "salary": {
+      "male": 2800000,
+      "female": null
+    },
+    "provides": {
+      "meal": true,
+      "snack": true,
+      "transport": false
+    },
+    "experience": true,
+    "closeDate": "2024-12-20"
+  },
+  {
+    "id": "4",
+    "farmName": "달콤딸기농장",
+    "title": "딸기 하우스 관리 및 수확",
+    "description": "딸기 하우스 내 온도 관리, 물주기, 딸기 수확 및 포장 작업을 담당합니다.",
+    "location": "전라남도 담양군 고서면",
+    "workDate": {
+      "start": "2024-12-01",
+      "end": "2025-04-30",
+      "time": "08:30-17:30"
+    },
+    "requiredPeople": {
+      "male": 1,
+      "female": 4
+    },
+    "salary": {
+      "male": 95000,
+      "female": 85000
+    },
+    "provides": {
+      "meal": false,
+      "snack": true,
+      "transport": true
+    },
+    "experience": false,
+    "closeDate": "2025-04-30"
+  },
+  {
+    "id": "5",
+    "farmName": "청정한우목장",
+    "title": "한우 사육 관리자",
+    "description": "한우 사료 급여, 우사 청소, 건강 체크 등 한우 사육 전반을 담당합니다.",
+    "location": "경상북도 안동시 길안면",
+    "workDate": {
+      "start": "2024-09-10",
+      "end": "2025-03-10",
+      "time": "05:30-19:00"
+    },
+    "requiredPeople": {
+      "male": 3,
+      "female": null
+    },
+    "salary": {
+      "male": 3200000,
+      "female": null
+    },
+    "provides": {
+      "meal": true,
+      "snack": false,
+      "transport": false
+    },
+    "experience": true,
+    "closeDate": "2025-03-10"
+  },
+  {
+    "id": "6",
+    "farmName": "향긋한허브농장",
+    "title": "허브 재배 및 가공 작업",
+    "description": "로즈마리, 라벤더 등 허브 재배, 수확, 건조 및 포장 작업을 진행합니다.",
+    "location": "제주특별자치도 서귀포시 안덕면",
+    "workDate": {
+      "start": "2024-08-25",
+      "end": "2024-11-25",
+      "time": "09:00-18:00"
+    },
+    "requiredPeople": {
+      "male": null,
+      "female": 6
+    },
+    "salary": {
+      "male": null,
+      "female": 12000
+    },
+    "provides": {
+      "meal": false,
+      "snack": true,
+      "transport": true
+    },
+    "experience": false,
+    "closeDate": "2024-11-25"
+  },
+  {
+    "id": "7",
+    "farmName": "황금벼농장",
+    "title": "벼 수확 및 건조 작업자",
+    "description": "가을 수확철 벼 베기, 탈곡, 건조장 운영 등의 작업을 담당합니다.",
+    "location": "전라북도 김제시 광활면",
+    "workDate": {
+      "start": "2024-10-01",
+      "end": "2024-11-05",
+      "time": "07:30-18:30"
+    },
+    "requiredPeople": {
+      "male": 4,
+      "female": 2
+    },
+    "salary": {
+      "male": 100000,
+      "female": 85000
+    },
+    "provides": {
+      "meal": true,
+      "snack": true,
+      "transport": true
+    },
+    "experience": false,
+    "closeDate": "2024-11-05"
+  },
+  {
+    "id": "8",
+    "farmName": "산자락버섯농장",
+    "title": "버섯 재배 및 수확 작업",
+    "description": "표고버섯, 느타리버섯 재배실 관리 및 수확, 포장 작업을 담당합니다.",
+    "location": "충청남도 공주시 계룡면",
+    "workDate": {
+      "start": "2024-09-15",
+      "end": "2025-01-15",
+      "time": "08:00-17:00"
+    },
+    "requiredPeople": {
+      "male": 2,
+      "female": 3
+    },
+    "salary": {
+      "male": 88000,
+      "female": 82000
+    },
+    "provides": {
+      "meal": true,
+      "snack": false,
+      "transport": false
+    },
+    "experience": false,
+    "closeDate": "2025-01-15"
+  },
+  {
+    "id": "9",
+    "farmName": "맑은공기토마토농장",
+    "title": "토마토 하우스 관리 작업자",
+    "description": "토마토 하우스 내 지주대 설치, 순지르기, 수확 및 선별 작업을 진행합니다.",
+    "location": "경상남도 밀양시 청도면",
+    "workDate": {
+      "start": "2024-08-30",
+      "end": "2024-12-30",
+      "time": "07:00-16:00"
+    },
+    "requiredPeople": {
+      "male": 1,
+      "female": 3
+    },
+    "salary": {
+      "male": 92000,
+      "female": 85000
+    },
+    "provides": {
+      "meal": false,
+      "snack": true,
+      "transport": true
+    },
+    "experience": true,
+    "closeDate": "2024-12-30"
+  },
+  {
+    "id": "10",
+    "farmName": "청춘과수원",
+    "title": "복숭아 수확 및 선별 작업",
+    "description": "8월 복숭아 수확철 과일 따기, 크기별 선별, 포장 작업을 담당합니다.",
+    "location": "경기도 이천시 마장면",
+    "workDate": {
+      "start": "2024-08-15",
+      "end": "2024-09-15",
+      "time": "06:00-15:00"
+    },
+    "requiredPeople": {
+      "male": 2,
+      "female": 4
+    },
+    "salary": {
+      "male": 95000,
+      "female": 88000
+    },
+    "provides": {
+      "meal": true,
+      "snack": true,
+      "transport": false
+    },
+    "experience": false,
+    "closeDate": "2024-09-15"
+  }
+]
