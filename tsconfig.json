@@ -19,14 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "*": ["*", "src/*"]
-    },
-    "types": ["nativewind/types"]
+    }
   },
   "include": [
     "src/**/*",
     "App.tsx",
-    "index.js",
-    "nativewind-env.d.ts"
+    "index.js"
   ],
   "exclude": [
     "**/Pods/**"
