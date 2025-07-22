@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { TabNavigationProp } from '../types/navigation';
+import { TabNavigationProp } from '../../types/navigation';
 
 export default function HomeScreen() {
     const navigation = useNavigation<TabNavigationProp>();

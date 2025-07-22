@@ -1,12 +1,17 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RootStackNavigationProp } from '../types/navigation';
+import { RootStackNavigationProp } from '../../types/navigation';
 
 export default function LoginScreen({ navigation }: { navigation: RootStackNavigationProp }) {
     const handleLogin = () => {
         // 로그인 로직 구현
         navigation.navigate('Main');
     };
+
+    // 시작 전 구경해보기 (userMain으로 이동)
+    const handleUserMain = () => {
+        navigation.navigate('UserMain');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,6 +52,11 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
 
                     <TouchableOpacity style={styles.signupButton}>
                         <Text style={styles.signupText}>회원가입</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity className="mt-4"
+                                      onPress={handleUserMain}>
+                        <Text className="text-[#ACD980] text-center">시작 전 구경해보기</Text>
                     </TouchableOpacity>
                 </View>
             </View>
