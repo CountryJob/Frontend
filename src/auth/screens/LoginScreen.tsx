@@ -54,9 +54,9 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
                         <Text style={styles.signupText}>회원가입</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity className="mt-4"
-                                      onPress={handleUserMain}>
-                        <Text className="text-[#ACD980] text-center">시작 전 구경해보기</Text>
+                    <TouchableOpacity style={styles.previewButton}
+                        onPress={handleUserMain}>
+                        <Text style={styles.previewText}>시작 전 구경해보기</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -122,6 +122,13 @@ const styles = StyleSheet.create({
     },
     signupText: {
         color: '#059669',
+        textAlign: 'center',
+    },
+    previewButton: {
+        marginTop: 16,
+    },
+    previewText: {
+        color: '#ACD980',
         textAlign: 'center',
     },
 }); 
