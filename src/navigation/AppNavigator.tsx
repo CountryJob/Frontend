@@ -2,16 +2,16 @@ import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginScreen from '../auth/screens/LoginScreen';
-import HomeScreen from '../farm/screens/HomeScreen';
-import PostScreen from '../farm/screens/PostScreen';
-import UserScreen from '../farm/screens/UserScreen';
+import LoginScreen from '../features/auth/screens/LoginScreen';
+import HomeScreen from '../features/farm/screens/HomeScreen';
+import PostScreen from '../features/farm/screens/PostScreen';
+import UserScreen from '../features/farm/screens/UserScreen';
 import { RootStackParamList, TabParamList, UserParamList } from '../types/navigation';
 // user screens
-import UserHomeScreen from '../user/screens/HomeScreen';
-import UserMapScreen from '../user/screens/MapScreen';
-import UserApplicationScreen from '../user/screens/ApplicationScreen';
-import UserMypageScreen from '../user/screens/MypageScreen';
+import UserHomeScreen from '../features/user/screens/HomeScreen';
+import UserMapScreen from '../features/user/screens/MapScreen';
+import UserApplicationScreen from '../features/user/screens/ApplicationScreen';
+import UserMypageScreen from '../features/user/screens/MypageScreen';
 
 // 아이콘 컴포넌트들
 const HomeIcon = ({ color, size }: { color: string; size: number }) => (
