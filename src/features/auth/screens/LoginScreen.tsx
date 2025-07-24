@@ -1,6 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RootStackNavigationProp } from '../../types/navigation';
+import { RootStackNavigationProp } from '../../../types/navigation';
 
 export default function LoginScreen({ navigation }: { navigation: RootStackNavigationProp }) {
     const handleLogin = () => {
