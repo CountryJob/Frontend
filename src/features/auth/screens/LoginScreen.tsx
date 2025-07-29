@@ -49,7 +49,7 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
     }
 
     const handleSignup = () => {
-        // 회원가입 로직
+        navigation.navigate('Signup');
     };
 
     const handleSocialLogin = (_provider: 'naver' | 'kakao') => {

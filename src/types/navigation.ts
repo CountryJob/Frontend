@@ -3,6 +3,9 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
     Login: undefined;
+    Signup: undefined;
+    WorkerSignup: undefined;
+    FarmSignup: undefined;
     Main: undefined;
     UserMain: undefined;
 };
@@ -22,6 +25,6 @@ export type UserParamList = {
 }
 
 export type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
-export type TabNavigationProp = BottomTabNavigationProp<TabParamList>; 
+export type TabNavigationProp = BottomTabNavigationProp<TabParamList>;
 // userNav 추가
 export type UserNavigationProp = BottomTabNavigationProp<UserParamList>;
