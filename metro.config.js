@@ -8,11 +8,12 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  */
 const config = {
   resolver: {
-    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'json'],
+    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'json', 'svg'],
     platforms: ['ios', 'android', 'native', 'web'],
     alias: {
       'invariant': require.resolve('invariant'),
     },
+    assetExts: ['png', 'jpg', 'jpeg', 'gif', 'webp'],
   },
   transformer: {
     getTransformOptions: async () => ({
@@ -21,6 +22,7 @@ const config = {
         inlineRequires: true,
       },
     }),
+    babelTransformerPath: require.resolve('react-native-svg-transformer'),
   },
 };
 

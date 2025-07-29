@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/kakao-icon.svg",
+      "sha1": "6dc9ead6a617ffe5ab09b394136f856f311cbb42"
+    },
+    {
+      "path": "src/assets/main-icon.svg",
+      "sha1": "9369f5ad2d261c131f8e576b8741d00355598492"
+    },
+    {
+      "path": "src/assets/naver-icon.svg",
+      "sha1": "652e04e14014138047463abca47bd8f94ccbbf0a"
+    }
+  ]
+}

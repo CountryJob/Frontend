@@ -24,7 +24,8 @@
   "include": [
     "src/**/*",
     "App.tsx",
-    "index.js"
+    "index.js",
+    "src/types/svg.d.ts"
   ],
   "exclude": [
     "**/Pods/**"
