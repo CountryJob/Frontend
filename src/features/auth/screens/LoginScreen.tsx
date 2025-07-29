@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackNavigationProp } from '../../../types/navigation';
 import MainIcon from '../../../assets/main-icon.svg'; // Using react-native-svg-transformer
-import NaverIcon from '../../../assets/naver-icon.svg';
-import KakaoIcon from '../../../assets/kakao-icon.svg';
 
 const { height } = Dimensions.get('window');
 
@@ -50,10 +48,6 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
 
     const handleSignup = () => {
         navigation.navigate('Signup');
-    };
-
-    const handleSocialLogin = (_provider: 'naver' | 'kakao') => {
-        // 소셜 로그인 로직
     };
 
     return (
@@ -109,24 +103,6 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
                         <TouchableOpacity onPress={handleSignup}>
                             <Text style={styles.signupText}>회원가입</Text>
                         </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.socialContainer}>
-                        <Text style={styles.socialText}>간편 로그인</Text>
-                        <View style={styles.socialButtons}>
-                            <TouchableOpacity
-                                style={styles.socialButton}
-                                onPress={() => handleSocialLogin('naver')}
-                            >
-                                <NaverIcon width={40} height={40} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.socialButton}
-                                onPress={() => handleSocialLogin('kakao')}
-                            >
-                                <KakaoIcon width={40} height={40} />
-                            </TouchableOpacity>
-                        </View>
                     </View>
 
                     <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
