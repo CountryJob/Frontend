@@ -40,6 +40,7 @@ export default function InputBox({
                         styles.input,
                         variant === 'borderless' ? styles.inputBorderless : styles.inputBordered,
                         isPhoneNumber ? styles.phoneInput : null,
+                        isPhoneNumber && value.length > 0 ? styles.phoneInputWithClear : null,
                         style
                     ]}
                     placeholder={placeholder}
@@ -99,6 +100,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 0,
         paddingVertical: 20,
+        paddingRight: 0,
+    },
+    phoneInputWithClear: {
+        paddingRight: 40,
     },
     clearButton: {
         position: 'absolute',

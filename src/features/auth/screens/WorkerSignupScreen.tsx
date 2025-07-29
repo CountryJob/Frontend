@@ -1,44 +1,36 @@
 import React, { useState } from 'react';
 import { RootStackNavigationProp } from '../../../types/navigation';
-import SignupLayout from '../components/common/SignupLayout';
-import Title from '../components/common/Title';
-import SubTitle from '../components/common/SubTitle';
-import InputBox from '../components/common/InputBox';
-import Button from '../components/common/Button';
+import PhoneNumberStep from '../components/worker/step1/PhoneNumberStep';
+import VerificationStep from '../components/worker/step2/VerificationStep';
 
 export default function WorkerSignupScreen({ navigation }: { navigation: RootStackNavigationProp }) {
+    const [currentStep, setCurrentStep] = useState<'phone' | 'verification'>('phone');
     const [phoneNumber, setPhoneNumber] = useState('');
 
-    const handleBack = () => {
-        navigation.goBack();
+    const handlePhoneNext = (phone: string) => {
+        setPhoneNumber(phone);
+        setCurrentStep('verification');
     };
 
-    const handleNext = () => {
-        if (phoneNumber.trim()) {
-            // 다음 단계로 이동
-            console.log('Worker phone number:', phoneNumber);
-        }
+    const handleVerificationNext = () => {
+        // 다음 단계로 이동 (예: 성별 선택)
+        console.log('Verification completed, moving to next step');
     };
+
+    if (currentStep === 'verification') {
+        return (
+            <VerificationStep
+                navigation={navigation}
+                phoneNumber={phoneNumber}
+                onNext={handleVerificationNext}
+            />
+        );
+    }
 
     return (
-        <SignupLayout onBack={handleBack}>
-            <Title>전화번호를 입력해주세요</Title>
-            <SubTitle>계정 확인이 필요해요</SubTitle>
-
-            <InputBox
-                placeholder="010-0000-0000"
-                value={phoneNumber}
-                onChangeText={setPhoneNumber}
-                keyboardType="phone-pad"
-                maxLength={13}
-            />
-
-            <Button
-                onPress={handleNext}
-                isActive={phoneNumber.trim().length > 0}
-            >
-                다음
-            </Button>
-        </SignupLayout>
+        <PhoneNumberStep
+            navigation={navigation}
+            onNext={handlePhoneNext}
+        />
     );
 } 
