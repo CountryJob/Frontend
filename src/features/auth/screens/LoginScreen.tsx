@@ -1,8 +1,43 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackNavigationProp } from '../../../types/navigation';
+import MainIcon from '../../../assets/main-icon.svg'; // Using react-native-svg-transformer
+import NaverIcon from '../../../assets/naver-icon.svg';
+import KakaoIcon from '../../../assets/kakao-icon.svg';
+
+const { height } = Dimensions.get('window');
 
 export default function LoginScreen({ navigation }: { navigation: RootStackNavigationProp }) {
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+    const slideAnim = useRef(new Animated.Value(0)).current;
+    const contentAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        // 첫 번째 애니메이션: 아이콘과 제목 페이드인
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+        }).start();
+
+        // 두 번째 애니메이션: 위로 슬라이드하면서 내용 나타남
+        setTimeout(() => {
+            Animated.parallel([
+                Animated.timing(slideAnim, {
+                    toValue: 1,
+                    duration: 800,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(contentAnim, {
+                    toValue: 1,
+                    duration: 600,
+                    useNativeDriver: true,
+                }),
+            ]).start();
+        }, 1200);
+    }, [fadeAnim, slideAnim, contentAnim]);
+
     const handleLogin = () => {
         // 로그인 로직 구현
         navigation.navigate('Main');
@@ -13,52 +48,91 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
         navigation.navigate('UserMain');
     }
 
+    const handleSignup = () => {
+        // 회원가입 로직
+    };
+
+    const handleSocialLogin = (_provider: 'naver' | 'kakao') => {
+        // 소셜 로그인 로직
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>Farm4U</Text>
-                    <Text style={styles.subtitle}>농업 관리 앱에 오신 것을 환영합니다</Text>
-                </View>
-
-                <View style={styles.form}>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>이메일</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="이메일을 입력하세요"
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
+                {/* 첫 번째 화면: 아이콘과 제목 */}
+                <Animated.View
+                    style={[
+                        styles.firstScreen,
+                        {
+                            opacity: fadeAnim,
+                            transform: [{
+                                translateY: slideAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0, -height * 0.15], // 살짝 위로 올라감
+                                })
+                            }]
+                        }
+                    ]}
+                >
+                    <View style={styles.iconContainer}>
+                        <MainIcon width={200} height={200} />
                     </View>
 
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>비밀번호</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="비밀번호를 입력하세요"
-                            secureTextEntry
-                        />
-                    </View>
+                    <Text style={styles.title}>팜포유</Text>
+                    <Text style={styles.subtitle}>농촌 인력 중개</Text>
+                </Animated.View>
 
+                {/* 두 번째 화면: 로그인 폼 */}
+                <Animated.View
+                    style={[
+                        styles.secondScreen,
+                        {
+                            opacity: contentAnim,
+                            transform: [{
+                                translateY: contentAnim.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [50, 0],
+                                })
+                            }]
+                        }
+                    ]}
+                >
                     <TouchableOpacity
                         style={styles.loginButton}
                         onPress={handleLogin}
                     >
-                        <Text style={styles.loginButtonText}>
-                            로그인
-                        </Text>
+                        <Text style={styles.loginButtonText}>로그인</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.signupButton}>
-                        <Text style={styles.signupText}>회원가입</Text>
-                    </TouchableOpacity>
+                    <View style={styles.signupContainer}>
+                        <Text style={styles.signupQuestion}>처음 방문이신가요? </Text>
+                        <TouchableOpacity onPress={handleSignup}>
+                            <Text style={styles.signupText}>회원가입</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                    <TouchableOpacity style={styles.previewButton}
-                        onPress={handleUserMain}>
+                    <View style={styles.socialContainer}>
+                        <Text style={styles.socialText}>간편 로그인</Text>
+                        <View style={styles.socialButtons}>
+                            <TouchableOpacity
+                                style={styles.socialButton}
+                                onPress={() => handleSocialLogin('naver')}
+                            >
+                                <NaverIcon width={40} height={40} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.socialButton}
+                                onPress={() => handleSocialLogin('kakao')}
+                            >
+                                <KakaoIcon width={40} height={40} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
                         <Text style={styles.previewText}>시작 전 구경해보기</Text>
                     </TouchableOpacity>
-                </View>
+                </Animated.View>
             </View>
         </SafeAreaView>
     );
@@ -72,44 +146,41 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: 24,
     },
-    header: {
-        marginBottom: 32,
+    firstScreen: {
+        alignItems: 'center',
+        position: 'absolute',
+        top: height * 0.3,
+    },
+    secondScreen: {
+        alignItems: 'center',
+        position: 'absolute',
+        top: height * 0.55,
+        width: '100%',
+    },
+    iconContainer: {
+        marginBottom: 20,
     },
     title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#111827',
+        fontSize: 50,
+        fontWeight: '600', // semibold
+        color: '#7FCB8F',
         marginBottom: 8,
     },
     subtitle: {
-        color: '#6B7280',
-    },
-    form: {
-        gap: 16,
-    },
-    inputGroup: {
-        marginBottom: 16,
-    },
-    label: {
-        color: '#374151',
-        marginBottom: 8,
-        fontWeight: '500',
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#D1D5DB',
-        borderRadius: 8,
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        color: '#111827',
+        fontSize: 25,
+        color: '#7FCB8F',
+        opacity: 0.8,
     },
     loginButton: {
-        backgroundColor: '#059669',
-        paddingVertical: 12,
-        borderRadius: 8,
-        marginTop: 24,
+        backgroundColor: '#7FCB8F',
+        paddingVertical: 16,
+        paddingHorizontal: 48,
+        borderRadius: 10,
+        marginBottom: 20,
+        width: '80%',
     },
     loginButtonText: {
         color: 'white',
@@ -117,18 +188,53 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontSize: 18,
     },
-    signupButton: {
-        marginTop: 16,
+    signupContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        gap: 10,
+    },
+    signupQuestion: {
+        color: '#DBDBDB',
+        fontSize: 15,
     },
     signupText: {
-        color: '#059669',
-        textAlign: 'center',
+        color: '#EE962E',
+        fontSize: 15,
+        fontWeight: '600',
+    },
+    socialContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    socialText: {
+        color: '#999',
+        fontSize: 14,
+        marginBottom: 20,
+    },
+    socialButtons: {
+        flexDirection: 'row',
+        gap: 15,
+    },
+    socialButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent', // 배경색 제거
+    },
+    socialButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
     previewButton: {
-        marginTop: 16,
+        marginTop: 30,
     },
     previewText: {
-        color: '#ACD980',
+        color: '#7FCB8F',
         textAlign: 'center',
+        fontSize: 16,
     },
 }); 
