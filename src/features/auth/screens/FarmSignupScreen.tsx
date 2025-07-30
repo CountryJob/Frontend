@@ -1,36 +1,41 @@
 import React, { useState } from 'react';
 import { RootStackNavigationProp } from '../../../types/navigation';
-import PhoneNumberStep from '../components/farm/step1/PhoneNumberStep';
-import VerificationStep from '../components/farm/step2/VerificationStep';
+import Step1 from '../components/signup/shared/Step1';
+import FarmStep2 from '../components/signup/farm/step2/Step2';
 
 export default function FarmSignupScreen({ navigation }: { navigation: RootStackNavigationProp }) {
-    const [currentStep, setCurrentStep] = useState<'phone' | 'verification'>('phone');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [currentStep, setCurrentStep] = useState<'step1' | 'step2'>('step1');
+    const [userData, setUserData] = useState<{ phoneNumber: string; name: string; gender: 'male' | 'female' } | null>(null);
 
-    const handlePhoneNext = (phone: string) => {
-        setPhoneNumber(phone);
-        setCurrentStep('verification');
+    const handleStep1Complete = (data: { phoneNumber: string; name: string; gender: 'male' | 'female' }) => {
+        setUserData(data);
+        setCurrentStep('step2');
     };
 
-    const handleVerificationNext = () => {
-        // 다음 단계로 이동 (예: 성별 선택)
-        console.log('Verification completed, moving to next step');
+    const handleStep2Complete = () => {
+        // Farm 전용 회원가입 완료 후 메인 화면으로 이동
+        console.log('Farm signup completed:', userData);
+        navigation.navigate('Main');
     };
 
-    if (currentStep === 'verification') {
+    if (currentStep === 'step1') {
         return (
-            <VerificationStep
+            <Step1
                 navigation={navigation}
-                phoneNumber={phoneNumber}
-                onNext={handleVerificationNext}
+                onComplete={handleStep1Complete}
             />
         );
     }
 
-    return (
-        <PhoneNumberStep
-            navigation={navigation}
-            onNext={handlePhoneNext}
-        />
-    );
+    if (currentStep === 'step2' && userData) {
+        return (
+            <FarmStep2
+                navigation={navigation}
+                onComplete={handleStep2Complete}
+                userData={userData}
+            />
+        );
+    }
+
+    return null;
 } 

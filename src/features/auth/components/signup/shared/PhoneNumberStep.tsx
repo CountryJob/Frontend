@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RootStackNavigationProp } from '../../../../../types/navigation';
-import SignupLayout from '../../common/SignupLayout';
-import Title from '../../common/Title';
-import SubTitle from '../../common/SubTitle';
-import InputBox from '../../common/InputBox';
-import Button from '../../common/Button';
+import SignupLayout from '../../layout/AuthLayout';
+import Title, { HighlightText } from '../../ui/Title';
+import SubTitle from '../../ui/SubTitle';
+import InputBox from '../../ui/InputBox';
+import Button from '../../ui/Button';
 
 interface PhoneNumberStepProps {
     navigation: RootStackNavigationProp;
@@ -56,7 +56,9 @@ export default function PhoneNumberStep({ navigation, onNext }: PhoneNumberStepP
     return (
         <SignupLayout onBack={handleBack}>
             <View style={styles.container}>
-                <Title>전화번호를 입력해주세요</Title>
+                <Title>
+                    <HighlightText>전화번호</HighlightText>를 입력해주세요
+                </Title>
                 <SubTitle>계정 확인이 필요해요</SubTitle>
 
                 <View style={styles.inputSection}>

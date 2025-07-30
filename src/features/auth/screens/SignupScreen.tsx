@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RootStackNavigationProp } from '../../../types/navigation';
-import SignupLayout from '../components/common/SignupLayout';
-import Title, { HighlightText } from '../components/common/Title';
-import Button from '../components/common/Button';
+import SignupLayout from '../components/layout/AuthLayout';
+import Title, { HighlightText } from '../components/ui/Title';
+import Button from '../components/ui/Button';
 
 export default function SignupScreen({ navigation }: { navigation: RootStackNavigationProp }) {
     const [hoveredButton, setHoveredButton] = useState<'worker' | 'farm' | null>(null);
@@ -22,42 +22,38 @@ export default function SignupScreen({ navigation }: { navigation: RootStackNavi
 
     return (
         <SignupLayout onBack={handleBack}>
-            {/* 메인 질문 */}
-            <View style={styles.questionContainer}>
+            <View style={styles.container}>
                 <Title>
-                    어떤 <HighlightText>목적</HighlightText>으로{'\n'}
-                    팜포유를 사용하시나요?
+                    어떤 <HighlightText>목적</HighlightText>으로{'\n'}팜포유를 사용하시나요?
                 </Title>
-            </View>
 
-            {/* 선택 버튼들 */}
-            <View style={styles.buttonContainer}>
-                <Button
-                    onPress={handleWorkerSignup}
-                    isActive={hoveredButton === 'worker'}
-                    onPressIn={() => setHoveredButton('worker')}
-                    onPressOut={() => setHoveredButton(null)}
-                >
-                    나의 일자리 찾기
-                </Button>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={handleWorkerSignup}
+                        isActive={hoveredButton === 'worker'}
+                        onPressIn={() => setHoveredButton('worker')}
+                        onPressOut={() => setHoveredButton(null)}
+                    >
+                        나의 일자리 찾기
+                    </Button>
 
-                <Button
-                    onPress={handleFarmSignup}
-                    isActive={hoveredButton === 'farm'}
-                    onPressIn={() => setHoveredButton('farm')}
-                    onPressOut={() => setHoveredButton(null)}
-                >
-                    농장 일손 구하기
-                </Button>
+                    <Button
+                        onPress={handleFarmSignup}
+                        isActive={hoveredButton === 'farm'}
+                        onPressIn={() => setHoveredButton('farm')}
+                        onPressOut={() => setHoveredButton(null)}
+                    >
+                        농장 일손 구하기
+                    </Button>
+                </View>
             </View>
         </SignupLayout>
     );
 }
 
 const styles = StyleSheet.create({
-    questionContainer: {
-        alignItems: 'flex-start',
-        marginBottom: 90,
+    container: {
+        gap: 50,
     },
     buttonContainer: {
         gap: 30,

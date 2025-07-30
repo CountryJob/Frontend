@@ -15,6 +15,7 @@ interface InputBoxProps {
     onResend?: () => void;
     resendText?: string;
     isPhoneNumber?: boolean;
+    selectionColor?: string;
 }
 
 export default function InputBox({
@@ -30,7 +31,8 @@ export default function InputBox({
     onClear,
     onResend,
     resendText = "인증 재요청",
-    isPhoneNumber = false
+    isPhoneNumber = false,
+    selectionColor = '#DAF1DB',
 }: InputBoxProps) {
     return (
         <View style={styles.container}>
@@ -50,6 +52,7 @@ export default function InputBox({
                     keyboardType={keyboardType}
                     maxLength={maxLength}
                     textAlign={isPhoneNumber ? 'center' : 'left'}
+                    selectionColor={selectionColor}
                 />
                 {showClearButton && value.length > 0 && (
                     <TouchableOpacity style={styles.clearButton} onPress={onClear}>
@@ -136,4 +139,4 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '600',
     },
-});
+}); 
