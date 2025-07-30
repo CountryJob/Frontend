@@ -135,13 +135,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: height * 0.55,
         width: '100%',
+        marginTop: 30,
     },
     iconContainer: {
         marginBottom: 20,
     },
     title: {
         fontSize: 50,
-        fontWeight: '600', // semibold
+        fontWeight: '600',
         color: '#7FCB8F',
         marginBottom: 8,
     },
@@ -178,32 +179,6 @@ const styles = StyleSheet.create({
         color: '#EE962E',
         fontSize: 15,
         fontWeight: '600',
-    },
-    socialContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    socialText: {
-        color: '#999',
-        fontSize: 14,
-        marginBottom: 20,
-    },
-    socialButtons: {
-        flexDirection: 'row',
-        gap: 15,
-    },
-    socialButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent', // 배경색 제거
-    },
-    socialButtonText: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 16,
     },
     previewButton: {
         marginTop: 30,
