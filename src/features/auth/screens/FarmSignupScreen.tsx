@@ -94,6 +94,7 @@ export default function FarmSignupScreen({ navigation }: { navigation: RootStack
             <FinalSuccessStep
                 navigation={navigation}
                 onComplete={handleFinalSuccess}
+                userType="farm"
             />
         );
     }

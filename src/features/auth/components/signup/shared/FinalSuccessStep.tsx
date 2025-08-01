@@ -8,9 +8,10 @@ import Button from '../../ui/Button';
 interface FinalSuccessStepProps {
     navigation: RootStackNavigationProp;
     onComplete: () => void;
+    userType?: 'farm' | 'worker';
 }
 
-export default function FinalSuccessStep({ navigation, onComplete }: FinalSuccessStepProps) {
+export default function FinalSuccessStep({ navigation, onComplete, userType = 'farm' }: FinalSuccessStepProps) {
     const handleComplete = () => {
         onComplete();
     };
@@ -28,10 +29,16 @@ export default function FinalSuccessStep({ navigation, onComplete }: FinalSucces
 
                 <View style={styles.messageContainer}>
                     <Text style={styles.message}>
-                        농장 정보가 성공적으로 등록되었습니다.
+                        {userType === 'farm'
+                            ? '농장 정보가 성공적으로 등록되었습니다.'
+                            : '구직자 등록이 완료되었습니다.'
+                        }
                     </Text>
                     <Text style={styles.subMessage}>
-                        이제 근로자들을 찾을 수 있습니다.
+                        {userType === 'farm'
+                            ? '이제 근로자들을 찾을 수 있습니다.'
+                            : '이제 일자리를 찾을 수 있습니다.'
+                        }
                     </Text>
                 </View>
 

@@ -149,6 +149,7 @@ export default function WorkerSignupScreen({ navigation }: { navigation: RootSta
             <FinalSuccessStep
                 navigation={navigation}
                 onComplete={handleFinalSuccess}
+                userType="worker"
             />
         );
     }
