@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { RootStackNavigationProp } from '../../../types/navigation';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackNavigationProp, RootStackParamList } from '../../../types/navigation';
 import Step1 from '../components/signup/shared/Step1';
 import WorkTypeSelectStep from '../components/signup/worker/WorkTypeSelectStep';
 import WorkDaySelectStep from '../components/signup/worker/WorkDaySelectStep';
@@ -8,7 +9,15 @@ import MatchingJobSelectStep from '../components/signup/worker/MatchingJobSelect
 import WorkerLocationStep from '../components/signup/worker/WorkerLocationStep';
 import FinalSuccessStep from '../components/signup/shared/FinalSuccessStep';
 
-export default function WorkerSignupScreen({ navigation }: { navigation: RootStackNavigationProp }) {
+type WorkerSignupScreenRouteProp = RouteProp<RootStackParamList, 'WorkerSignup'>;
+
+interface WorkerSignupScreenProps {
+    navigation: RootStackNavigationProp;
+    route: WorkerSignupScreenRouteProp;
+}
+
+export default function WorkerSignupScreen({ navigation, route }: WorkerSignupScreenProps) {
+    const userType = route.params?.userType || 'WORKER';
     const [currentStep, setCurrentStep] = useState<'step1' | 'workType' | 'workDay' | 'experience' | 'matchingJob' | 'workerLocation' | 'finalSuccess'>('step1');
     const [userData, setUserData] = useState<{
         phoneNumber: string;
@@ -85,6 +94,7 @@ export default function WorkerSignupScreen({ navigation }: { navigation: RootSta
         return (
             <Step1
                 navigation={navigation}
+                userType={userType}
                 onComplete={handleStep1Complete}
             />
         );

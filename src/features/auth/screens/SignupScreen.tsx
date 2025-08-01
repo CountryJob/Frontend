@@ -9,11 +9,11 @@ export default function SignupScreen({ navigation }: { navigation: RootStackNavi
     const [hoveredButton, setHoveredButton] = useState<'worker' | 'farm' | null>(null);
 
     const handleWorkerSignup = () => {
-        navigation.navigate('WorkerSignup');
+        navigation.navigate('WorkerSignup', { userType: 'WORKER' });
     };
 
     const handleFarmSignup = () => {
-        navigation.navigate('FarmSignup');
+        navigation.navigate('FarmSignup', { userType: 'FARMER' });
     };
 
     const handleBack = () => {

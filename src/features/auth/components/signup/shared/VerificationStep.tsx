@@ -6,14 +6,16 @@ import Title, { HighlightText } from '../../ui/Title';
 import InputBox from '../../ui/InputBox';
 import Button from '../../ui/Button';
 import AttentionCircle from '../../../../../assets/Attention-Circle.svg';
+import { authApi } from '../../../../../api';
 
 interface VerificationStepProps {
     navigation: RootStackNavigationProp;
     phoneNumber: string;
+    userType: 'FARMER' | 'WORKER';
     onNext: () => void;
 }
 
-export default function VerificationStep({ navigation, phoneNumber, onNext }: VerificationStepProps) {
+export default function VerificationStep({ navigation, phoneNumber, userType, onNext }: VerificationStepProps) {
     const [verificationCode, setVerificationCode] = useState('');
     const [timeLeft, setTimeLeft] = useState(600); // 10분
     const [error, setError] = useState('');
@@ -43,21 +45,32 @@ export default function VerificationStep({ navigation, phoneNumber, onNext }: Ve
         navigation.goBack();
     };
 
-    const handleVerify = () => {
+    const handleVerify = async () => {
         console.log('handleVerify called with:', verificationCode);
         console.log('verificationCode length:', verificationCode.length);
 
-        if (verificationCode.length > 0) {
-            // 임시로 123456이 올바른 코드라고 가정
-            if (verificationCode === '123456') {
-                console.log('Correct code, proceeding to next step');
+        if (verificationCode.length === 6) {
+            const cleanPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+            const codeNumber = parseInt(verificationCode);
+
+            console.log('📤 API 전송 - 회원가입:', {
+                phoneNumber: cleanPhoneNumber,
+                code: codeNumber,
+                mode: userType
+            });
+
+            try {
+                const response = await authApi.signup(cleanPhoneNumber, codeNumber, userType);
+                console.log('📥 API 응답 - 회원가입:', response);
                 setError('');
                 onNext();
-            } else {
+            } catch (error) {
+                console.error('❌ API 에러 - 회원가입:', error);
                 setError('인증번호를 잘못 입력하셨습니다.\n다시 확인해주세요.');
             }
         } else {
             console.log('No verification code entered');
+            setError('인증번호 6자리를 입력해주세요.');
         }
     };
 
@@ -66,10 +79,20 @@ export default function VerificationStep({ navigation, phoneNumber, onNext }: Ve
         setError('');
     };
 
-    const handleResend = () => {
-        setTimeLeft(600);
-        setError('');
-        setVerificationCode('');
+    const handleResend = async () => {
+        const cleanPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+        console.log('📤 API 전송 - 인증번호 재요청:', { phoneNumber: cleanPhoneNumber });
+
+        try {
+            const response = await authApi.requestCode({ phoneNumber: cleanPhoneNumber });
+            console.log('📥 API 응답 - 인증번호 재요청:', response);
+            setTimeLeft(600);
+            setError('');
+            setVerificationCode('');
+        } catch (error) {
+            console.error('❌ API 에러 - 인증번호 재요청:', error);
+            setError('인증번호 재요청에 실패했습니다.\n잠시 후 다시 시도해주세요.');
+        }
     };
 
     return (

@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
-import { RootStackNavigationProp } from '../../../types/navigation';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackNavigationProp, RootStackParamList } from '../../../types/navigation';
 import Step1 from '../components/signup/shared/Step1';
 import FarmNameInputStep from '../components/signup/farm/FarmNameInputStep';
 import BusinessLicenseStep from '../components/signup/farm/BusinessLicenseStep';
 import FarmLocationStep from '../components/signup/farm/FarmLocationStep';
 import FinalSuccessStep from '../components/signup/shared/FinalSuccessStep';
 
-export default function FarmSignupScreen({ navigation }: { navigation: RootStackNavigationProp }) {
+type FarmSignupScreenRouteProp = RouteProp<RootStackParamList, 'FarmSignup'>;
+
+interface FarmSignupScreenProps {
+    navigation: RootStackNavigationProp;
+    route: FarmSignupScreenRouteProp;
+}
+
+export default function FarmSignupScreen({ navigation, route }: FarmSignupScreenProps) {
+    const userType = route.params?.userType || 'FARMER';
     const [currentStep, setCurrentStep] = useState<'step1' | 'farmName' | 'businessLicense' | 'farmLocation' | 'finalSuccess'>('step1');
     const [userData, setUserData] = useState<{
         phoneNumber: string;
@@ -54,6 +63,7 @@ export default function FarmSignupScreen({ navigation }: { navigation: RootStack
         return (
             <Step1
                 navigation={navigation}
+                userType={userType}
                 onComplete={handleStep1Complete}
             />
         );

@@ -2,10 +2,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
+    MainScreen: undefined;
     Login: undefined;
     Signup: undefined;
-    WorkerSignup: undefined;
-    FarmSignup: undefined;
+    WorkerSignup: { userType: 'WORKER' } | undefined;
+    FarmSignup: { userType: 'FARMER' } | undefined;
     Main: undefined;
     UserMain: undefined;
 };

@@ -1,191 +1,181 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
 import { RootStackNavigationProp } from '../../../types/navigation';
-import MainIcon from '../../../assets/main-icon.svg'; // Using react-native-svg-transformer
-
-const { height } = Dimensions.get('window');
+import SignupLayout from '../components/layout/AuthLayout';
+import Title, { HighlightText } from '../components/ui/Title';
+import SubTitle from '../components/ui/SubTitle';
+import InputBox from '../components/ui/InputBox';
+import Button from '../components/ui/Button';
+import { authApi } from '../../../api/auth/authApi';
 
 export default function LoginScreen({ navigation }: { navigation: RootStackNavigationProp }) {
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-    const slideAnim = useRef(new Animated.Value(0)).current;
-    const contentAnim = useRef(new Animated.Value(0)).current;
+    const [currentStep, setCurrentStep] = useState<'phone' | 'verification'>('phone');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [verificationCode, setVerificationCode] = useState('');
 
-    useEffect(() => {
-        // 첫 번째 애니메이션: 아이콘과 제목 페이드인
-        Animated.timing(fadeAnim, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: true,
-        }).start();
+    const formatPhoneNumber = (text: string) => {
+        const numbers = text.replace(/[^0-9]/g, '');
+        if (numbers.length > 11) return phoneNumber;
 
-        // 두 번째 애니메이션: 위로 슬라이드하면서 내용 나타남
-        setTimeout(() => {
-            Animated.parallel([
-                Animated.timing(slideAnim, {
-                    toValue: 1,
-                    duration: 800,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(contentAnim, {
-                    toValue: 1,
-                    duration: 600,
-                    useNativeDriver: true,
-                }),
-            ]).start();
-        }, 1200);
-    }, [fadeAnim, slideAnim, contentAnim]);
-
-    const handleLogin = () => {
-        // 로그인 로직 구현
-        navigation.navigate('Main');
+        if (numbers.length <= 3) {
+            return numbers;
+        } else if (numbers.length <= 7) {
+            return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+        } else {
+            return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7)}`;
+        }
     };
 
-    // 시작 전 구경해보기 (userMain으로 이동)
-    const handleUserMain = () => {
-        navigation.navigate('UserMain');
+    const handlePhoneNumberChange = (text: string) => {
+        const formatted = formatPhoneNumber(text);
+        setPhoneNumber(formatted);
+    };
+
+    const handleVerificationCodeChange = (text: string) => {
+        setVerificationCode(text);
+    };
+
+    const handleSendVerification = async () => {
+        if (phoneNumber.replace(/[^0-9]/g, '').length === 11) {
+            const cleanPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+            console.log('📤 API 전송 - 인증번호 요청:', { phoneNumber: cleanPhoneNumber });
+
+            try {
+                // Fetch 기반 API 사용 (더 안정적)
+                console.log('🔄 Fetch로 인증번호 요청...');
+                const response = await authApi.requestCode({ phoneNumber: cleanPhoneNumber });
+                console.log('📥 API 응답 - 인증번호 요청:', response);
+                setCurrentStep('verification');
+            } catch (error) {
+                console.error('❌ API 에러 - 인증번호 요청:', error);
+                Alert.alert('오류', '인증번호 요청에 실패했습니다. 네트워크 연결을 확인해주세요.');
+            }
+        }
+    };
+
+    const handleVerifyCode = async () => {
+        if (verificationCode.length === 6) {
+            const cleanPhoneNumber = phoneNumber.replace(/[^0-9]/g, '');
+            const codeNumber = parseInt(verificationCode);
+            console.log('📤 API 전송 - 로그인:', { phoneNumber: cleanPhoneNumber, code: codeNumber });
+
+            try {
+                const response = await authApi.login(cleanPhoneNumber, codeNumber);
+                console.log('📥 API 응답 - 로그인:', response);
+                navigation.navigate('Main');
+            } catch (error) {
+                console.error('❌ API 에러 - 로그인:', error);
+                Alert.alert('오류', '로그인에 실패했습니다. 인증번호를 확인해주세요.');
+            }
+        }
+    };
+
+    const handleClearPhone = () => {
+        setPhoneNumber('');
+    };
+
+    const handleClearCode = () => {
+        setVerificationCode('');
+    };
+
+    const handleBack = () => {
+        if (currentStep === 'verification') {
+            setCurrentStep('phone');
+        } else if (currentStep === 'phone') {
+            navigation.navigate('MainScreen');
+        } else {
+            navigation.goBack();
+        }
+    };
+
+    const isPhoneNumberComplete = phoneNumber.replace(/[^0-9]/g, '').length === 11;
+    const isVerificationCodeComplete = verificationCode.length === 6;
+
+    // 전화번호 입력 화면
+    if (currentStep === 'phone') {
+        return (
+            <SignupLayout onBack={handleBack}>
+                <View style={styles.container}>
+                    <Title>
+                        <HighlightText>전화번호</HighlightText>를 입력해주세요
+                    </Title>
+                    <SubTitle>계정 확인이 필요해요</SubTitle>
+
+                    <View style={styles.inputSection}>
+                        <InputBox
+                            placeholder="010-0000-0000"
+                            value={phoneNumber}
+                            onChangeText={handlePhoneNumberChange}
+                            keyboardType="phone-pad"
+                            maxLength={13}
+                            variant="borderless"
+                            showClearButton={true}
+                            onClear={handleClearPhone}
+                            isPhoneNumber={true}
+                        />
+
+                        {isPhoneNumberComplete && (
+                            <Button
+                                onPress={handleSendVerification}
+                                isActive={true}
+                            >
+                                인증번호 받기
+                            </Button>
+                        )}
+                    </View>
+
+
+                </View>
+            </SignupLayout>
+        );
     }
 
-    const handleSignup = () => {
-        navigation.navigate('Signup');
-    };
+    // 인증번호 입력 화면
+    if (currentStep === 'verification') {
+        return (
+            <SignupLayout onBack={handleBack}>
+                <View style={styles.container}>
+                    <Title>
+                        <HighlightText>인증번호</HighlightText>를 입력해주세요
+                    </Title>
+                    <SubTitle>{phoneNumber}로 인증번호를 발송했습니다</SubTitle>
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
-                {/* 첫 번째 화면: 아이콘과 제목 */}
-                <Animated.View
-                    style={[
-                        styles.firstScreen,
-                        {
-                            opacity: fadeAnim,
-                            transform: [{
-                                translateY: slideAnim.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [0, -height * 0.15], // 살짝 위로 올라감
-                                })
-                            }]
-                        }
-                    ]}
-                >
-                    <View style={styles.iconContainer}>
-                        <MainIcon width={200} height={200} />
+                    <View style={styles.inputSection}>
+                        <InputBox
+                            placeholder="000000"
+                            value={verificationCode}
+                            onChangeText={handleVerificationCodeChange}
+                            keyboardType="number-pad"
+                            maxLength={6}
+                            variant="borderless"
+                            showClearButton={true}
+                            onClear={handleClearCode}
+                            isPhoneNumber={true}
+                        />
+
+                        {isVerificationCodeComplete && (
+                            <Button
+                                onPress={handleVerifyCode}
+                                isActive={true}
+                            >
+                                로그인
+                            </Button>
+                        )}
                     </View>
+                </View>
+            </SignupLayout>
+        );
+    }
 
-                    <Text style={styles.title}>팜포유</Text>
-                    <Text style={styles.subtitle}>농촌 인력 중개</Text>
-                </Animated.View>
-
-                {/* 두 번째 화면: 로그인 폼 */}
-                <Animated.View
-                    style={[
-                        styles.secondScreen,
-                        {
-                            opacity: contentAnim,
-                            transform: [{
-                                translateY: contentAnim.interpolate({
-                                    inputRange: [0, 1],
-                                    outputRange: [50, 0],
-                                })
-                            }]
-                        }
-                    ]}
-                >
-                    <TouchableOpacity
-                        style={styles.loginButton}
-                        onPress={handleLogin}
-                    >
-                        <Text style={styles.loginButtonText}>로그인</Text>
-                    </TouchableOpacity>
-
-                    <View style={styles.signupContainer}>
-                        <Text style={styles.signupQuestion}>처음 방문이신가요? </Text>
-                        <TouchableOpacity onPress={handleSignup}>
-                            <Text style={styles.signupText}>회원가입</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
-                        <Text style={styles.previewText}>시작 전 구경해보기</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-            </View>
-        </SafeAreaView>
-    );
+    return null;
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'white',
+        gap: 15,
     },
-    content: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 24,
-    },
-    firstScreen: {
-        alignItems: 'center',
-        position: 'absolute',
-        top: height * 0.3,
-    },
-    secondScreen: {
-        alignItems: 'center',
-        position: 'absolute',
-        top: height * 0.55,
-        width: '100%',
-        marginTop: 30,
-    },
-    iconContainer: {
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 50,
-        fontWeight: '600',
-        color: '#7FCB8F',
-        marginBottom: 8,
-    },
-    subtitle: {
-        fontSize: 25,
-        color: '#7FCB8F',
-        opacity: 0.8,
-    },
-    loginButton: {
-        backgroundColor: '#7FCB8F',
-        paddingVertical: 16,
-        paddingHorizontal: 48,
-        borderRadius: 10,
-        marginBottom: 20,
-        width: '80%',
-    },
-    loginButtonText: {
-        color: 'white',
-        textAlign: 'center',
-        fontWeight: '600',
-        fontSize: 18,
-    },
-    signupContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-        gap: 10,
-    },
-    signupQuestion: {
-        color: '#DBDBDB',
-        fontSize: 15,
-    },
-    signupText: {
-        color: '#EE962E',
-        fontSize: 15,
-        fontWeight: '600',
-    },
-    previewButton: {
-        marginTop: 30,
-    },
-    previewText: {
-        color: '#7FCB8F',
-        textAlign: 'center',
-        fontSize: 16,
+    inputSection: {
+        marginTop: 10,
+        gap: 20,
     },
 }); 
