@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackNavigationProp } from '../../../types/navigation';
 import MainIcon from '../../../assets/main-icon.svg'; // Using react-native-svg-transformer
-import NaverIcon from '../../../assets/naver-icon.svg';
-import KakaoIcon from '../../../assets/kakao-icon.svg';
 
 const { height } = Dimensions.get('window');
 
@@ -49,11 +47,7 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
     }
 
     const handleSignup = () => {
-        // 회원가입 로직
-    };
-
-    const handleSocialLogin = (_provider: 'naver' | 'kakao') => {
-        // 소셜 로그인 로직
+        navigation.navigate('Signup');
     };
 
     return (
@@ -111,24 +105,6 @@ export default function LoginScreen({ navigation }: { navigation: RootStackNavig
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.socialContainer}>
-                        <Text style={styles.socialText}>간편 로그인</Text>
-                        <View style={styles.socialButtons}>
-                            <TouchableOpacity
-                                style={styles.socialButton}
-                                onPress={() => handleSocialLogin('naver')}
-                            >
-                                <NaverIcon width={40} height={40} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.socialButton}
-                                onPress={() => handleSocialLogin('kakao')}
-                            >
-                                <KakaoIcon width={40} height={40} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
                     <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
                         <Text style={styles.previewText}>시작 전 구경해보기</Text>
                     </TouchableOpacity>
@@ -159,13 +135,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: height * 0.55,
         width: '100%',
+        marginTop: 30,
     },
     iconContainer: {
         marginBottom: 20,
     },
     title: {
         fontSize: 50,
-        fontWeight: '600', // semibold
+        fontWeight: '600',
         color: '#7FCB8F',
         marginBottom: 8,
     },
@@ -202,32 +179,6 @@ const styles = StyleSheet.create({
         color: '#EE962E',
         fontSize: 15,
         fontWeight: '600',
-    },
-    socialContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    socialText: {
-        color: '#999',
-        fontSize: 14,
-        marginBottom: 20,
-    },
-    socialButtons: {
-        flexDirection: 'row',
-        gap: 15,
-    },
-    socialButton: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent', // 배경색 제거
-    },
-    socialButtonText: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 16,
     },
     previewButton: {
         marginTop: 30,

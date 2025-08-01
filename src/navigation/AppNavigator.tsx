@@ -3,6 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from '../features/auth/screens/LoginScreen';
+import SignupScreen from '../features/auth/screens/SignupScreen';
+import FarmSignupScreen from '../features/auth/screens/FarmSignupScreen';
+import WorkerSignupScreen from '../features/auth/screens/WorkerSignupScreen';
 import HomeScreen from '../features/farm/screens/HomeScreen';
 import PostScreen from '../features/farm/screens/PostScreen';
 import UserScreen from '../features/farm/screens/UserScreen';
@@ -144,8 +147,18 @@ function UserTabNavigator() {
 export default function AppNavigator() {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    animation: 'slide_from_right', // 오른쪽에서 왼쪽으로 슬라이드
+                    gestureEnabled: true, // 제스처 활성화
+                    gestureDirection: 'horizontal', // 수평 제스처
+                }}
+            >
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Signup" component={SignupScreen} />
+                <Stack.Screen name="FarmSignup" component={FarmSignupScreen} />
+                <Stack.Screen name="WorkerSignup" component={WorkerSignupScreen} />
                 <Stack.Screen name="Main" component={TabNavigator} />
                 <Stack.Screen name="UserMain" component={UserTabNavigator} />
             </Stack.Navigator>
