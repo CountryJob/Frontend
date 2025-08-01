@@ -15,6 +15,7 @@ interface InputBoxProps {
     onResend?: () => void;
     resendText?: string;
     isPhoneNumber?: boolean;
+    isBusinessNumber?: boolean;
     selectionColor?: string;
 }
 

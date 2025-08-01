@@ -81,6 +81,7 @@ export default function Step1({ navigation, onComplete }: Step1Props) {
     if (currentStep === 'gender') {
         return (
             <GenderSelectionStep
+                navigation={navigation}
                 onNext={handleGenderNext}
                 onBack={handleBack}
             />

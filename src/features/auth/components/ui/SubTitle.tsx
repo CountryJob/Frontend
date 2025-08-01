@@ -19,5 +19,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#A7A7A7',
         textAlign: 'left',
+        lineHeight: 24,
     },
 });
