@@ -40,8 +40,8 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
 
     const handleLogin = () => {
         // 로그인 화면으로 이동
-        // navigation.navigate('Login');
-        navigation.navigate("Tabs", { screen: "Home" });
+        navigation.navigate('Login');
+        // navigation.navigate("Tabs", { screen: "Home" });
     };
 
     // 시작 전 구경해보기 (userMain으로 이동)
@@ -52,6 +52,11 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
     const handleSignup = () => {
         navigation.navigate('Signup');
     };
+
+    // farm 화면으로 이동
+    const handleFarmMain = () => {
+        navigation.navigate("Tabs", { screen: "Home" });
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -109,7 +114,10 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
                     </View>
 
                     <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
-                        <Text style={styles.previewText}>시작 전 구경해보기</Text>
+                        <Text style={styles.previewText}>시작 전 구경해보기(구직자)</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.previewButton} onPress={handleFarmMain}>
+                        <Text style={styles.previewText}>시작 전 구경해보기(농가)</Text>
                     </TouchableOpacity>
                 </Animated.View>
             </View>
