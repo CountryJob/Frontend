@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, PermissionsAndroid, Platform } from 'react-native';
 import WebView, { WebView as WebViewType } from 'react-native-webview';
 import Geolocation from 'react-native-geolocation-service';
+import { KAKAO_MAP_KEY } from '@env';
+
 
 const HTML = `<!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@ const HTML = `<!DOCTYPE html>
         padding: 0;
       }
     </style>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ee7ba5b1ae7a6d4493fbefadc0859e61&autoload=false"></script>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&autoload=false"></script>
   </head>
   <body>
     <div id="map"></div>
