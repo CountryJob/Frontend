@@ -1,298 +1,142 @@
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { UserNavigationProp } from 'src/types/navigation';
+import MailIcon from '../../../assets/icons/mail-icon.svg';
+import RightIcon from '../../../assets/icons/right-icon.svg';
 
-export default function UserScreen() {
-    const userData = {
-        name: '김철수',
-        email: 'kim@ex.com',
-        avatar: '👨‍🌾',
-        joinDate: '2024년 1월',
-        farmName: '행복농장',
-        location: '경기도 수원시',
-    };
+export default function MypageScreen() {
+  const navigation = useNavigation<UserNavigationProp>();
 
-    const stats = {
-        totalCrops: 12,
-        activeCrops: 8,
-        completedHarvests: 5,
-        totalArea: '2.5ha',
-    };
+  return (
+    <SafeAreaView style={styles.safe}>
+      {/* Content + Scroll */}
+      <View style={styles.flexContainer}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
+          {/* Header */}
+          <View style={styles.header}>
+            <Text style={styles.title}>마이페이지</Text>
+          </View>
 
-    const menuItems = [
-        { icon: '👤', title: '프로필 수정', subtitle: '개인정보 변경' },
-        { icon: '🏠', title: '농장 정보', subtitle: '농장 상세 정보' },
-        { icon: '📊', title: '농작물 통계', subtitle: '생산성 분석' },
-        { icon: '⚙️', title: '앱 설정', subtitle: '알림, 언어 등' },
-        { icon: '📚', title: '도움말', subtitle: '사용법 가이드' },
-        { icon: '📞', title: '고객지원', subtitle: '문의 및 신고' },
-    ];
+          {/* User Info Section */}
+          <View style={styles.userSection}>
+            <View style={styles.rowBetween}>
+              <Text style={styles.userName}>전혜자 농장 님</Text>
+            </View>
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                {/* 헤더 */}
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>
-                        마이페이지
-                    </Text>
-                    <Text style={styles.headerSubtitle}>
-                        농장 관리 정보와 설정
-                    </Text>
-                </View>
+            <View style={styles.infoBlock}>
+              <Text style={styles.label}>휴대폰 번호</Text>
+              <Text style={styles.info}>010-1234-1234</Text>
+            </View>
 
-                {/* 사용자 정보 카드 */}
-                <View style={styles.content}>
-                    <View style={styles.userCard}>
-                        <View style={styles.userInfo}>
-                            <Text style={styles.avatar}>{userData.avatar}</Text>
-                            <View style={styles.userDetails}>
-                                <Text style={styles.userName}>
-                                    {userData.name}
-                                </Text>
-                                <Text style={styles.userEmail}>{userData.email}</Text>
-                                <Text style={styles.joinDate}>
-                                    가입일: {userData.joinDate}
-                                </Text>
-                            </View>
-                        </View>
+            <View style={styles.infoBlock}>
+              <Text style={styles.label}>사업자등록번호</Text>
+              <Text style={styles.info}>135-82-01164</Text>
+            </View>
 
-                        <View style={styles.farmInfo}>
-                            <Text style={styles.farmName}>
-                                {userData.farmName}
-                            </Text>
-                            <Text style={styles.farmLocation}>{userData.location}</Text>
-                        </View>
-                    </View>
+            <View style={styles.infoBlock}>
+              <Text style={styles.label}>주소</Text>
+              <Text style={styles.info}>전북특별자치도 임실군 오수면 군평길 28 (군평리)</Text>
+            </View>
 
-                    {/* 농장 통계 */}
-                    <View style={styles.statsCard}>
-                        <Text style={styles.statsTitle}>
-                            농장 현황
-                        </Text>
-                        <View style={styles.statsRow}>
-                            <View style={styles.statItem}>
-                                <Text style={styles.statValue}>{stats.totalCrops}</Text>
-                                <Text style={styles.statLabel}>전체 작물</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={[styles.statValue, styles.blueValue]}>{stats.activeCrops}</Text>
-                                <Text style={styles.statLabel}>재배 중</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={[styles.statValue, styles.orangeValue]}>{stats.completedHarvests}</Text>
-                                <Text style={styles.statLabel}>수확 완료</Text>
-                            </View>
-                            <View style={styles.statItem}>
-                                <Text style={[styles.statValue, styles.purpleValue]}>{stats.totalArea}</Text>
-                                <Text style={styles.statLabel}>총 면적</Text>
-                            </View>
-                        </View>
-                    </View>
+            <TouchableOpacity style={styles.menuItem}>
+              <MailIcon width={24} height={24} color="#A5AEBA" />
+              <Text style={styles.menuText}>지난 공고 내역</Text>
+              <RightIcon width={24} height={24} color="#A5AEBA" />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
 
-                    {/* 메뉴 목록 */}
-                    <View style={styles.menuCard}>
-                        {menuItems.map((item, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={[
-                                    styles.menuItem,
-                                    index !== menuItems.length - 1 && styles.menuItemBorder
-                                ]}
-                            >
-                                <Text style={styles.menuIcon}>{item.icon}</Text>
-                                <View style={styles.menuContent}>
-                                    <Text style={styles.menuTitle}>{item.title}</Text>
-                                    <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
-                                </View>
-                                <Text style={styles.menuArrow}>›</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-
-                    {/* 로그아웃 버튼 */}
-                    <TouchableOpacity style={styles.logoutButton}>
-                        <Text style={styles.logoutText}>로그아웃</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
+        {/* Footer: Logout */}
+        <TouchableOpacity style={styles.logoutButton}>
+          <Text style={styles.logoutText}>로그아웃</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F9FAFB',
-    },
-    scrollView: {
-        flex: 1,
-    },
-    header: {
-        backgroundColor: '#059669',
-        paddingHorizontal: 24,
-        paddingVertical: 32,
-    },
-    headerTitle: {
-        color: 'white',
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    headerSubtitle: {
-        color: '#D1FAE5',
-    },
-    content: {
-        paddingHorizontal: 24,
-        paddingVertical: 24,
-    },
-    userCard: {
-        backgroundColor: 'white',
-        borderRadius: 12,
-        padding: 24,
-        marginBottom: 24,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    userInfo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    avatar: {
-        fontSize: 40,
-        marginRight: 16,
-    },
-    userDetails: {
-        flex: 1,
-    },
-    userName: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#1F2937',
-    },
-    userEmail: {
-        color: '#6B7280',
-    },
-    joinDate: {
-        fontSize: 14,
-        color: '#9CA3AF',
-        marginTop: 4,
-    },
-    farmInfo: {
-        borderTopWidth: 1,
-        borderTopColor: '#F3F4F6',
-        paddingTop: 16,
-    },
-    farmName: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#1F2937',
-        marginBottom: 4,
-    },
-    farmLocation: {
-        color: '#6B7280',
-    },
-    statsCard: {
-        backgroundColor: 'white',
-        borderRadius: 12,
-        padding: 24,
-        marginBottom: 24,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    statsTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#1F2937',
-        marginBottom: 16,
-    },
-    statsRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    statItem: {
-        alignItems: 'center',
-    },
-    statValue: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#059669',
-    },
-    blueValue: {
-        color: '#3B82F6',
-    },
-    orangeValue: {
-        color: '#F97316',
-    },
-    purpleValue: {
-        color: '#8B5CF6',
-    },
-    statLabel: {
-        color: '#6B7280',
-        fontSize: 14,
-    },
-    menuCard: {
-        backgroundColor: 'white',
-        borderRadius: 12,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.05,
-        shadowRadius: 2,
-        elevation: 2,
-    },
-    menuItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 16,
-    },
-    menuItemBorder: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#F3F4F6',
-    },
-    menuIcon: {
-        fontSize: 24,
-        marginRight: 16,
-    },
-    menuContent: {
-        flex: 1,
-    },
-    menuTitle: {
-        color: '#1F2937',
-        fontWeight: '500',
-    },
-    menuSubtitle: {
-        color: '#9CA3AF',
-        fontSize: 14,
-    },
-    menuArrow: {
-        color: '#D1D5DB',
-    },
-    logoutButton: {
-        marginTop: 24,
-        backgroundColor: '#FEF2F2',
-        borderWidth: 1,
-        borderColor: '#FECACA',
-        borderRadius: 12,
-        padding: 16,
-    },
-    logoutText: {
-        color: '#DC2626',
-        textAlign: 'center',
-        fontWeight: '500',
-    },
-}); 
+  safe: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  flexContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
+  header: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  userSection: {
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    paddingBottom: 16,
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  userName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  infoBlock: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 18,
+    color: '#989898',
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  info: {
+    fontSize: 20,
+    color: '#333',
+    fontWeight: 'bold',
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FAFAFA',
+    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    marginTop: 20,
+  },
+  menuText: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#2A2A2A',
+    marginLeft: 12,
+  },
+  logoutButton: {
+    backgroundColor: '#D9D9D9',
+    borderRadius: 8,
+    paddingVertical: 16,
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
+  logoutText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});

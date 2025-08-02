@@ -6,12 +6,39 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  Alert,
+  PermissionsAndroid,
+  Platform
 } from 'react-native';
 import MicIcon from '../../../assets/icons/mic-icon.svg';
+// 음성 녹음
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
-export default function PostChat({ onComplete}) {
+// import { jobsApi } from 'src/api/jobs/jobsApi';
+
+const audioRecorder = new AudioRecorderPlayer();
+
+// Android 런타임 권한 요청 헬퍼
+async function ensureAudioPermission() {
+  if (Platform.OS !== 'android') return true;
+  const granted = await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+    {
+      title: '마이크 권한 요청',
+      message: '음성 녹음을 위해 마이크 권한이 필요합니다.',
+      buttonPositive: '확인',
+      buttonNegative: '취소',
+    }
+  );
+  return granted === PermissionsAndroid.RESULTS.GRANTED;
+}
+
+
+export default function PostChat22({ onComplete}) {
   const [isRecording, setIsRecording] = useState(false);
   const [hasRecorded, setHasRecorded] = useState(false); 
+  console.log("🚀 ~ PostChat22 ~ hasRecorded:", hasRecorded)
+  const [recordedFilePath, setRecordedFilePath] = useState('');
 
   const toggleRecording = () => {
     if (isRecording) {
