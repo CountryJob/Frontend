@@ -43,12 +43,22 @@ export const authApi = {
     /**
      * 회원가입 (신규 사용자)
      */
-    signup: (phoneNumber: string, code: number, userType: 'FARMER' | 'WORKER') =>
-        authApi.verifyCode({
+    signup: async (phoneNumber: string, code: number, userType: 'FARMER' | 'WORKER'): Promise<VerifyCodeResponse> =>{
+        await authApi.requestCode({ phoneNumber });
+
+        // 2) 인증번호 검증 + 회원가입
+        return authApi.verifyCode({
             phoneNumber,
             code,
             mode: userType,
-        }),
+        });
+    },
+        
+        // authApi.verifyCode({
+        //     phoneNumber,
+        //     code,
+        //     mode: userType,
+        // }),
 
     /**
      * 로그아웃

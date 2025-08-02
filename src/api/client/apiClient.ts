@@ -11,9 +11,10 @@ const api = axios.create({
 
 // 요청 인터셉터 (예: 토큰 자동 추가)
 api.interceptors.request.use(config => {
-    // const token = await getToken();
-    // config.headers.Authorization = `Bearer ${token}`;
+    // baseURL 또는 url이 undefined일 경우 빈 문자열로 대체
+    const fullUrl = `${config.baseURL ?? ''}${config.url ?? ''}`;
+    console.log('➡️ Request URL:', fullUrl);
     return config;
-});
+  });
 
 export default api; 
