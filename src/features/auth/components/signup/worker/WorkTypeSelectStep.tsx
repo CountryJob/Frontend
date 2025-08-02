@@ -30,8 +30,6 @@ export default function WorkTypeSelectStep({ onNext, onBack, onSkip }: WorkTypeS
         }
     };
 
-
-
     return (
         <SignupLayout onBack={onBack} onSkip={handleSkip} showSkip={true}>
             <View style={styles.container}>

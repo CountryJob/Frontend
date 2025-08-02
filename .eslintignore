@@ -1,0 +1,8 @@
+# Node.js 서버 파일
+proxy-server.js
+
+# 기타 제외할 파일들
+node_modules/
+build/
+dist/
+*.log

@@ -2,6 +2,7 @@ import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MainScreen from '../features/auth/screens/MainScreen';
 import LoginScreen from '../features/auth/screens/LoginScreen';
 import SignupScreen from '../features/auth/screens/SignupScreen';
 import FarmSignupScreen from '../features/auth/screens/FarmSignupScreen';
@@ -163,6 +164,7 @@ export default function AppNavigator() {
                     gestureDirection: 'horizontal', // 수평 제스처
                 }}
             >
+                <Stack.Screen name="MainScreen" component={MainScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="FarmSignup" component={FarmSignupScreen} />

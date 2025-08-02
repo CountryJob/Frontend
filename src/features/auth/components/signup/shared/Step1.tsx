@@ -7,10 +7,11 @@ import GenderSelectionStep from './GenderSelectionStep';
 
 interface Step1Props {
     navigation: RootStackNavigationProp;
+    userType: 'FARMER' | 'WORKER';
     onComplete: (data: { phoneNumber: string; name: string; gender: 'male' | 'female' }) => void;
 }
 
-export default function Step1({ navigation, onComplete }: Step1Props) {
+export default function Step1({ navigation, userType, onComplete }: Step1Props) {
     const [currentStep, setCurrentStep] = useState<'phone' | 'verification' | 'name' | 'gender'>('phone');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
@@ -63,6 +64,7 @@ export default function Step1({ navigation, onComplete }: Step1Props) {
             <VerificationStep
                 navigation={navigation}
                 phoneNumber={phoneNumber}
+                userType={userType}
                 onNext={handleVerificationNext}
             />
         );
