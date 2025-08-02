@@ -114,10 +114,7 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
                     </View>
 
                     <TouchableOpacity style={styles.previewButton} onPress={handleUserMain}>
-                        <Text style={styles.previewText}>시작 전 구경해보기(구직자)</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.previewButton} onPress={handleFarmMain}>
-                        <Text style={styles.previewText}>시작 전 구경해보기(농가)</Text>
+                        <Text style={styles.previewText}>시작 전 구경해보기</Text>
                     </TouchableOpacity>
                 </Animated.View>
             </View>

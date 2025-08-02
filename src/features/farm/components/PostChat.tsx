@@ -48,8 +48,8 @@ const PostChat: React.FC<PostChatProps> = ({ onComplete }) => {
   const [uploading, setUploading] = useState(false);
 
   // const token = useAuthStore((s) => s.token); // JWT 토큰 예시
-  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzU0MTU4MjgwLCJleHAiOjE3NTQyNDQ2ODB9.srxQQlQyI56eMA6TUx-6J_HFaePgwXKR-8VVG5FlbkE";
-
+  
+  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3IiwiaWF0IjoxNzU0MTczNDk4LCJleHAiOjE3NTQyNTk4OTh9.prQs5kqXcxtss4ghV25MYvQkt_Ls58lgbSoGDbohhA8";
   // 녹음 시작
   const startRecording = async () => {
     const hasPermission = await ensureAudioPermission();
@@ -125,42 +125,42 @@ const PostChat: React.FC<PostChatProps> = ({ onComplete }) => {
   // 오디오 업로드
   const handleUpload = async () => {
     console.log('recordedFilePath', recordedFilePath);
-    if (!recordedFilePath) return;
-    setUploading(true);
-    let uri = recordedFilePath;
-    if (Platform.OS === 'android' && uri.startsWith('file:')) {
-      uri = uri.replace('file://', 'file:///');
-    }
+    // if (!recordedFilePath) return;
+    // setUploading(true);
+    // let uri = recordedFilePath;
+    // if (Platform.OS === 'android' && uri.startsWith('file:')) {
+    //   uri = uri.replace('file://', 'file:///');
+    // }
 
-    try {
+    // try {
 
-      const exists = await RNFetchBlob.fs.exists(uri.replace('file://', ''));
-      console.log('🔥 파일 존재 여부:', exists, uri);
+    //   const exists = await RNFetchBlob.fs.exists(uri.replace('file://', ''));
+    //   console.log('🔥 파일 존재 여부:', exists, uri);
 
 
      
-    // 파일명 · MIME 타입
-    const originalName = uri.split('/').pop() || 'audio';
-    const baseName = originalName.replace(/\.[^/.]+$/, '');
-    const formFileName = `${baseName}.webm`;
-    const mimeType = 'audio/webm';
+    // // 파일명 · MIME 타입
+    // const originalName = uri.split('/').pop() || 'audio';
+    // const baseName = originalName.replace(/\.[^/.]+$/, '');
+    // const formFileName = `${baseName}.webm`;
+    // const mimeType = 'audio/webm';
 
-    // FormData
-    const formData = new FormData();
-    formData.append('audioFile', { uri, name: formFileName, type: mimeType } as any);
+    // // FormData
+    // const formData = new FormData();
+    // formData.append('audioFile', { uri, name: formFileName, type: mimeType } as any);
 
-    // @ts-ignore
-    console.log('📦 formData._parts:', formData._parts);
+    // // @ts-ignore
+    // console.log('📦 formData._parts:', formData._parts);
 
   
-      // 5) 전송
-      mutation.mutate(formData);
-    } catch (e) {
-      Alert.alert('업로드 중 오류 발생');
-    } finally {
-      setUploading(false);
-    }
-    // onComplete?.();
+    //   // 5) 전송
+    //   mutation.mutate(formData);
+    // } catch (e) {
+    //   Alert.alert('업로드 중 오류 발생');
+    // } finally {
+    //   setUploading(false);
+    // }
+    onComplete?.();
   };
 
   return (
