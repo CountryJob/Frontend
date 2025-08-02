@@ -1,22 +1,30 @@
+// import { create } from 'zustand';
+// import { persist, createJSONStorage } from 'zustand/middleware';
+// import { UserType } from '../api/auth/authTypes';
+
+// import { UserType } from "../api/auth/authTypes";
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { UserType } from '../api/auth/authTypes';
 
-// AsyncStorage 대신 임시로 localStorage 사용 (나중에 패키지 설치 후 변경)
-const AsyncStorage = {
-    getItem: async (_key: string) => {
-        // 임시 구현
-        return null;
-    },
-    setItem: async (key: string, value: string) => {
-        // 임시 구현
-        console.log('토큰 저장:', key, value);
-    },
-    removeItem: async (key: string) => {
-        // 임시 구현
-        console.log('토큰 삭제:', key);
-    },
-};
+
+
+// AsyncStorage 대신 임시로 localStorage 사용 
+// const AsyncStorage = {
+//     getItem: async (_key: string) => {
+//         // 임시 구현
+//         return null;
+//     },
+//     setItem: async (key: string, value: string) => {
+//         // 임시 구현
+//         console.log('토큰 저장:', key, value);
+//     },
+//     removeItem: async (key: string) => {
+//         // 임시 구현
+//         console.log('토큰 삭제:', key);
+//     },
+// };
 
 interface AuthState {
     // 토큰 관련

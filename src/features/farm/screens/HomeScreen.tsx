@@ -5,9 +5,12 @@ import { TabNavigationProp } from '../../../types/navigation';
 import NotificationButton from '../components/NotificationButton';
 import CreateJobSection from '../components/CreateJobSection';
 import OngoingJobsSection from '../components/OngoingJobSection';
+import { useJobsStore } from '../../../stores/jobsStore';
 
 export default function HomeScreen() {
   const navigation = useNavigation<TabNavigationProp>();
+  const jobs = useJobsStore(state => state.jobs);
+
 
   const handleCreateJob = () => {
     navigation.navigate('Post');
@@ -22,7 +25,7 @@ export default function HomeScreen() {
       </View>
       <ScrollView style={styles.scrollContainer}>
       {/* 진행중 공고 */}
-      <OngoingJobsSection />
+      <OngoingJobsSection jobs={jobs}/>
       {/* 공고 작성 */}
       <CreateJobSection onPress={handleCreateJob} />
       </ScrollView>
