@@ -12,7 +12,7 @@ export default function JobPostCard({ job, hasApplicants = false }) {
           onPress={() => console.log(`공고 ${job.id} 지원자 목록 보기`)}
         />
       {/* 하단: 공고 정보 */}
-      {/* <JobPostContent /> */}
+      <JobPostContent job={job} />
     </View>
   );
 }

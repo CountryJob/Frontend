@@ -6,7 +6,7 @@ const API_ENDPOINTS = {
   },
 };
 
-export const jobsApi = {
+export const jobsApi22 = {
   autoWrite: async (payload) => {
     const response = await api.post(API_ENDPOINTS.JOBS.AUTO_WRITE, payload);
     return response.data;

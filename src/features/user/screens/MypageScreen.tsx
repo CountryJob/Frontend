@@ -24,7 +24,7 @@ export default function MypageScreen() {
           
           <View style={styles.incomeSection}>
             <Text style={styles.incomeLabel}>이달의 수입</Text>
-            <Text style={styles.incomeAmount}>0원</Text>
+            <Text style={styles.incomeAmount}>250,000원</Text>
           </View>
 
           {/* Action Buttons */}
