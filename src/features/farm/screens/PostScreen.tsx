@@ -4,12 +4,10 @@ import PostChat from "../components/PostChat";
 import PostForm from "../components/PostForm";
 
 export default function PostScreen(){
-  const [step,setStep] = useState('intro');
+  const [step,setStep] = useState('chat');
   return(
     <>
-    {step === 'intro' && <PostIntro onStart={() => setStep('chat')} />}
-    {step === 'chat' && <PostChat onComplete={() => setStep('form')}
-                                  onIntro={() => setStep('intro')}  />}
+    {step === 'chat' && <PostChat onComplete={() => setStep('form')} />}
     {step === 'form' && <PostForm onChat={() => setStep('chat')} />}                            
     </>
   )

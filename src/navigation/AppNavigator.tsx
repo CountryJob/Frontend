@@ -15,32 +15,40 @@ import UserHomeScreen from '../features/user/screens/HomeScreen';
 import UserMapScreen from '../features/user/screens/MapScreen';
 import UserApplicationScreen from '../features/user/screens/ApplicationScreen';
 import UserMypageScreen from '../features/user/screens/MypageScreen';
+// 아이콘들
+import HomeIcon from '../assets/icons/house-icon.svg';
+import PostIcon from '../assets/icons/paper-icon.svg';
+import UserIcon from '../assets/icons/user-icon.svg';
+import MapIcon from '../assets/icons/map-icon.svg';
+import CreateIcon from '../assets/icons/pencil-icon.svg';
+
+
 
 // 아이콘 컴포넌트들
-const HomeIcon = ({ color, size }: { color: string; size: number }) => (
-    <Text style={{ color, fontSize: size }}>🏠</Text>
+const Home = ({ color, size }: { color: string; size: number }) => (
+    <HomeIcon width={size} height={size} color='#848585' />
 );
 
-const PostIcon = ({ color, size }: { color: string; size: number }) => (
-    <Text style={{ color, fontSize: size }}>🌱</Text>
+const Post = ({ color, size }: { color: string; size: number }) => (
+    <PostIcon width={size} height={size} color='#848585' />
 );
 
-const UserIcon = ({ color, size }: { color: string; size: number }) => (
-    <Text style={{ color, fontSize: size }}>🙂</Text>
+const User = ({ color, size }: { color: string; size: number }) => (
+    <UserIcon width={size} height={size} color='#848585' />
 );
 
 // 추가된 아이콘
-const MapIcon = ({ color, size }: { color: string; size: number }) => (
-    <Text style={{ color, fontSize: size }}>📍</Text>
+const Map = ({ color, size }: { color: string; size: number }) => (
+    <MapIcon width={size} height={size} color='#848585' />
 );
 
-const ApplicationIcon = ({ color, size }: { color: string; size: number }) => (
-    <Text style={{ color, fontSize: size }}>📑</Text>
+const Create = ({ color, size }: { color: string; size: number }) => (
+    <CreateIcon width={size} height={size} color='#848585' />
 );
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
-const User = createBottomTabNavigator<UserParamList>();
+const UserNav = createBottomTabNavigator<UserParamList>();
 
 // 탭 네비게이터
 function TabNavigator() {
@@ -48,7 +56,7 @@ function TabNavigator() {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: '#059669',
+                tabBarActiveTintColor: '#FF9A5C',
                 tabBarInactiveTintColor: '#6B7280',
                 tabBarStyle: {
                     backgroundColor: '#FFFFFF',
@@ -65,7 +73,7 @@ function TabNavigator() {
                 component={HomeScreen}
                 options={{
                     title: '홈',
-                    tabBarIcon: HomeIcon,
+                    tabBarIcon: Home,
                 }}
             />
             <Tab.Screen
@@ -73,7 +81,7 @@ function TabNavigator() {
                 component={PostScreen}
                 options={{
                     title: '공고 작성',
-                    tabBarIcon: PostIcon,
+                    tabBarIcon: Create,
                 }}
             />
             <Tab.Screen
@@ -81,7 +89,7 @@ function TabNavigator() {
                 component={UserScreen}
                 options={{
                     title: '마이페이지',
-                    tabBarIcon: UserIcon,
+                    tabBarIcon: User,
                 }}
             />
         </Tab.Navigator>
@@ -91,10 +99,10 @@ function TabNavigator() {
 // user Nav
 function UserTabNavigator() {
     return (
-        <User.Navigator
+        <UserNav.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarActiveTintColor: '#059669',
+                tabBarActiveTintColor: '#FF9A5C',
                 tabBarInactiveTintColor: '#6B7280',
                 tabBarStyle: {
                     backgroundColor: '#FFFFFF',
@@ -106,39 +114,39 @@ function UserTabNavigator() {
                 },
             }}
         >
-            <User.Screen
+            <UserNav.Screen
                 name="Home"
                 component={UserHomeScreen}
                 options={{
                     title: '홈',
-                    tabBarIcon: HomeIcon,
+                    tabBarIcon: Home,
                 }}
             />
-            <User.Screen
+            <UserNav.Screen
                 name="Map"
                 component={UserMapScreen}
                 options={{
                     title: '지도',
-                    tabBarIcon: MapIcon,
+                    tabBarIcon: Map,
                 }}
             />
-            <User.Screen
+            <UserNav.Screen
                 name="Application"
                 component={UserApplicationScreen}
                 options={{
                     title: '지원이력',
-                    tabBarIcon: ApplicationIcon,
+                    tabBarIcon: Post,
                 }}
             />
-            <User.Screen
+            <UserNav.Screen
                 name="Mypage"
                 component={UserMypageScreen}
                 options={{
                     title: '마이페이지',
-                    tabBarIcon: UserIcon,
+                    tabBarIcon: User,
                 }}
             />
-        </User.Navigator>
+        </UserNav.Navigator>
     );
 }
 

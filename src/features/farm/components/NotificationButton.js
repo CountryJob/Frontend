@@ -1,12 +1,15 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import BellIcon from '../../../assets/icons/bell-icon.svg';
 
-export default function NotificationButton({onPress, hasNotification}) {
+export default function NotificationButton({
+  onPress, 
+  hasNotification = false
+}) {
   return (
     <TouchableOpacity style={styles.button}
                       onPress={onPress}>
-      <BellIcon width={24} height={24} color='#BDC2D0' />
+      <BellIcon width={24} height={24} color='#BDC2D0'/>
       {hasNotification && <View style={styles.badge} />}
     </TouchableOpacity>
   )

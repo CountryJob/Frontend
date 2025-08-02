@@ -11,6 +11,7 @@
     "generate-icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^8.4.3",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.9.12",
@@ -19,6 +20,8 @@
     "lucide-react-native": "^0.525.0",
     "react": "19.1.0",
     "react-native": "0.80.1",
+    "react-native-audio-record": "^0.2.2",
+    "react-native-date-picker": "^5.0.13",
     "react-native-gesture-handler": "^2.27.1",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.12.0",
