@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import JobPostCard from "./JobPostCard";
 
-export default function OngoingJobsSection() {
+export default function OngoingJobsSection({jobs}) {
   const dummyJobs = [
     {
       id: 1,

@@ -17,6 +17,7 @@ import { jobsApi } from '../../../api/jobs/jobsApi';
 
 import axios from 'axios';
 
+import RNFetchBlob from 'rn-fetch-blob';
 
 interface PostChatProps {
   onComplete?: () => void;
@@ -47,7 +48,7 @@ const PostChat: React.FC<PostChatProps> = ({ onComplete }) => {
   const [uploading, setUploading] = useState(false);
 
   // const token = useAuthStore((s) => s.token); // JWT 토큰 예시
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzU0MDYwMjE1LCJleHAiOjE3NTQxNDY2MTV9.Aip4Wk90-U-sZgu_1QFBwybUglVgxocYLD35-wN0WQc'; // 실제 토큰으로 교체
+  const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzU0MTU4MjgwLCJleHAiOjE3NTQyNDQ2ODB9.srxQQlQyI56eMA6TUx-6J_HFaePgwXKR-8VVG5FlbkE";
 
   // 녹음 시작
   const startRecording = async () => {
@@ -74,6 +75,7 @@ const PostChat: React.FC<PostChatProps> = ({ onComplete }) => {
       setIsRecording(false);
       setHasRecorded(true);
       setRecordedFilePath(result || recordedFilePath);
+      console.log('✅ 녹음 완료, 파일 경로:', result);
     } catch (e) {
       Alert.alert('녹음 중지 실패');
       setIsRecording(false);
@@ -125,22 +127,40 @@ const PostChat: React.FC<PostChatProps> = ({ onComplete }) => {
     console.log('recordedFilePath', recordedFilePath);
     if (!recordedFilePath) return;
     setUploading(true);
-    try {
-      const fileName = recordedFilePath.split('/').pop() || 'audio.aac';
-      const mimeType = 'audio/aac'; // 실제 녹음 포맷에 맞게 변경
+    let uri = recordedFilePath;
+    if (Platform.OS === 'android' && uri.startsWith('file:')) {
+      uri = uri.replace('file://', 'file:///');
+    }
 
-      const formData = new FormData();
-      formData.append('audioFile', {
-        uri: recordedFilePath,
-        type: mimeType,
-        name: fileName,
-      }as any);
+    try {
+
+      const exists = await RNFetchBlob.fs.exists(uri.replace('file://', ''));
+      console.log('🔥 파일 존재 여부:', exists, uri);
+
+
+     
+    // 파일명 · MIME 타입
+    const originalName = uri.split('/').pop() || 'audio';
+    const baseName = originalName.replace(/\.[^/.]+$/, '');
+    const formFileName = `${baseName}.webm`;
+    const mimeType = 'audio/webm';
+
+    // FormData
+    const formData = new FormData();
+    formData.append('audioFile', { uri, name: formFileName, type: mimeType } as any);
+
+    // @ts-ignore
+    console.log('📦 formData._parts:', formData._parts);
+
+  
+      // 5) 전송
       mutation.mutate(formData);
     } catch (e) {
       Alert.alert('업로드 중 오류 발생');
     } finally {
       setUploading(false);
     }
+    // onComplete?.();
   };
 
   return (

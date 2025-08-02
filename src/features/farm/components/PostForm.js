@@ -10,7 +10,15 @@ import {
 } from 'react-native';
 import DateTimeInput from '../components/DateTimePicker';
 import LeftIcon from '../../../assets/icons/left-icon.svg';
+import { useJobsStore } from '../../../stores/jobsStore';
+import { useNavigation } from '@react-navigation/native';
+
 export default function JobPostForm({ onChat }) {
+
+  const navigation = useNavigation();
+
+
+  const addJob = useJobsStore(state => state.addJob);
   // 서버에서 받아온 데이터 (더미 데이터)
   const dummyJobPost = {
     title: "상추 수확",
@@ -91,6 +99,31 @@ export default function JobPostForm({ onChat }) {
     console.log('수정된 데이터:', formData);
     // API 호출로 서버에 전송
     // updateJobPost(formData);
+     // formData를 store의 JobPost 타입에 맞게 변환
+    const newJob = {
+      id: Date.now().toString(), // 임시 id
+      title: formData.title,
+      area_size: Number(formData.area_size),
+      start_date: formData.start_date,
+      end_date: formData.end_date,
+      start_time: formData.start_time,
+      end_time: formData.end_time,
+      address: formData.address,
+      description: formData.description,
+      recruit_count_male: Number(formData.recruit_count_male),
+      recruit_count_female: Number(formData.recruit_count_female),
+      salary_male: Number(formData.salary_male),
+      salary_female: Number(formData.salary_female),
+      meal: formData.meal,
+      snack: formData.snack,
+      transport_allowance: formData.transport_allowance,
+      experience_required: formData.experience_required,
+      applicantCount: 0,      // 추가
+      hasApplicants: true,    // 추가
+    };
+    addJob(newJob);
+    navigation.navigate('Main', { screen: 'Home' });
+    
   };
 
   return (

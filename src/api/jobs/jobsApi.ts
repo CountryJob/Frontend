@@ -7,11 +7,7 @@ const API_ENDPOINTS = {
 };
 
 export interface JobDto {
-  // 실제 jobdto 구조에 맞게 타입을 정의하세요
-  // 예시:
-  // id: number;
-  // title: string;
-  // ...
+
   [key: string]: any;
 }
 
@@ -37,7 +33,7 @@ export const jobsApi = {
       formData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          // 'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`,
         },
       }

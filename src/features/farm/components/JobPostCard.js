@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import JobApplicant from "./JobApplicant";
 import JobPostContent from "./JobPostContent";
 
-export default function JobPostCard({ job, hasApplicants = false }) {
+export default function JobPostCard({ job }) {
 
   return (
     <View style={styles.card}>
