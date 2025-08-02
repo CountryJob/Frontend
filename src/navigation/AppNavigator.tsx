@@ -171,6 +171,7 @@ export default function AppNavigator() {
                 <Stack.Screen name="WorkerSignup" component={WorkerSignupScreen} />
                 <Stack.Screen name="Main" component={TabNavigator} />
                 <Stack.Screen name="UserMain" component={UserTabNavigator} />
+                <Stack.Screen name="Tabs" component={TabNavigator} /> 
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -10,7 +10,6 @@ export default function HomeHeader({onSearchPress, onNotificationPress, hasNotif
       <View style={styles.firstRow}>
         <Text style={styles.title}>팜포유 농가 리스트</Text>
         <View style={styles.buttonSection}>
-          <SearchButton onPress={onSearchPress} />
           <NotificationButton onPress={onNotificationPress}
                               hasNotification={hasNotification} />
         </View>

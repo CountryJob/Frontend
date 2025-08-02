@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { RootStackNavigationProp } from '../../../types/navigation';
+import { RootStackNavigationProp, TabNavigationProp } from '../../../types/navigation';
 import MainIcon from '../../../assets/main-icon.svg'; // Using react-native-svg-transformer
+import { useNavigation } from '@react-navigation/native';
 
 const { height } = Dimensions.get('window');
 
@@ -10,6 +11,7 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const slideAnim = useRef(new Animated.Value(0)).current;
     const contentAnim = useRef(new Animated.Value(0)).current;
+
 
     useEffect(() => {
         // 첫 번째 애니메이션: 아이콘과 제목 페이드인
@@ -38,7 +40,8 @@ export default function MainScreen({ navigation }: { navigation: RootStackNaviga
 
     const handleLogin = () => {
         // 로그인 화면으로 이동
-        navigation.navigate('Login');
+        // navigation.navigate('Login');
+        navigation.navigate("Tabs", { screen: "Home" });
     };
 
     // 시작 전 구경해보기 (userMain으로 이동)

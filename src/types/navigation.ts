@@ -9,6 +9,7 @@ export type RootStackParamList = {
     FarmSignup: { userType: 'FARMER' } | undefined;
     Main: undefined;
     UserMain: undefined;
+    Tabs: { screen: string };
 };
 
 export type TabParamList = {
